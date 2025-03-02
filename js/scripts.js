@@ -30,6 +30,13 @@ const getWeatherData = async (city) => {
     document.getElementById("wind").innerHTML = `<i class="fa-solid fa-wind"></i> ${data.wind.speed} km/h`;
     document.getElementById("weather-icon").src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
 
+    // Adicionando a bandeira do país
+    const countryCode = data.sys.country;
+    document.getElementById("country").src = `https://flagsapi.com/${countryCode}/shiny/64.png`;
+
+    // Buscar o estado (região)
+    getState(data.coord.lat, data.coord.lon);
+
     weatherData.classList.remove("hide");
 
     setBackgroundImage(city); // Chama a função para trocar o fundo
@@ -41,21 +48,52 @@ const getWeatherData = async (city) => {
   }
 };
 
-// Função para buscar e definir imagem de fundo com base na cidade
-const setBackgroundImage = async (city) => {
+// Função para buscar o estado com base na latitude e longitude
+const getState = async (lat, lon) => {
   try {
-    const unsplashUrl = `https://api.unsplash.com/photos/random?query=${city}&client_id=${unsplashApiKey}&orientation=landscape`;
+    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+    const data = await response.json();
+
+    if (data.address && data.address.state) {
+      document.getElementById("state").textContent = data.address.state;
+    } else {
+      document.getElementById("state").textContent = "Estado não encontrado";
+    }
+  } catch (error) {
+    console.error("Erro ao buscar o estado:", error);
+    document.getElementById("state").textContent = "Erro ao buscar o estado";
+  }
+};
+
+// Função para buscar e definir imagem de fundo com base na cidade
+const setBackgroundImage = async (city, country = "") => {
+  try {
+    // Melhorando a precisão da busca com termos mais específicos
+    const query = `${city} ${country} skyline, cityscape, downtown`;
+    const unsplashUrl = `https://api.unsplash.com/photos/random?query=${encodeURIComponent(query)}&client_id=${unsplashApiKey}&orientation=landscape`;
+    
     const response = await fetch(unsplashUrl);
     const data = await response.json();
 
     if (data.urls && data.urls.regular) {
       document.body.classList.add("bg-image");
       document.body.style.backgroundImage = `url('${data.urls.regular}')`;
+    } else {
+      console.warn("Nenhuma imagem relevante encontrada para:", city);
+      setDefaultBackground();
     }
   } catch (error) {
     console.error("Erro ao carregar imagem de fundo:", error);
+    setDefaultBackground();
   }
 };
+
+// Função de fallback para caso a API falhe
+const setDefaultBackground = () => {
+  document.body.classList.add("bg-image");
+  document.body.style.backgroundImage = "url('caminho_para_imagem_padrao.jpg')";
+};
+
 
 // Evento de clique no botão de busca
 searchButton.addEventListener("click", () => {
@@ -69,4 +107,23 @@ cityInput.addEventListener("keypress", (event) => {
     const city = cityInput.value.trim();
     if (city) getWeatherData(city);
   }
+});
+
+document.getElementById("search").addEventListener("click", function () {
+  const cityInput = document.getElementById("city-input").value.trim();
+  if (cityInput !== "") {
+    document.getElementById("suggestions").classList.add("hide"); // Esconde sugestões
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const suggestionButtons = document.querySelectorAll("#suggestions button");
+  const cityInput = document.getElementById("city-input");
+
+  suggestionButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      cityInput.value = button.textContent; // Preenche o input
+      cityInput.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" })); // Simula o Enter
+    });
+  });
 });
