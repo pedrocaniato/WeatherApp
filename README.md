@@ -16,7 +16,6 @@ Aplicação simples de previsão do tempo, criada para demonstrar integração c
 ## ⚙️ Funcionalidades
 
 - 🔍 Busca de clima por nome da cidade  
-- 🌍 Possibilidade de obter clima da localização atual (se implementado)  
 - 📊 Exibição de dados como: temperatura, umidade, vento, etc.  
 - 🧩 Interface responsiva para mobile e desktop  
 
