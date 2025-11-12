@@ -6,9 +6,9 @@ Aplicação simples de previsão do tempo, criada para demonstrar integração c
 
 ## 🚀 Tecnologias Utilizadas
 
-- React (ou a biblioteca/framework que você usou)  
-- TypeScript (se aplicável)  
-- CSS / SCSS / Tailwind (ou o que você tiver usado)  
+- React  
+- TypeScript  
+- CSS
 - API de clima externa (ex: OpenWeatherMap)  
 
 ---
