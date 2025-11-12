@@ -37,7 +37,8 @@ WeatherApp/
 
 ---
 
-![Imagem do WhatsApp de 2025-11-12 à(s) 12 30 03_67e24f1b](https://github.com/user-attachments/assets/9de352e4-8682-4d8e-9a0e-aea45c847011)
+![screenshot png](https://github.com/user-attachments/assets/a3cec679-33e1-4798-be7e-e2a3623f4305)
+
 
 
 --- 
