@@ -92,7 +92,7 @@ Se a localização automática estiver habilitada, permita permissão e veja se 
 - 📅 **Exibir previsão para os próximos dias**
 - 🌐 **Suporte a múltiplos idiomas/localizações**  
 - 🧪 **Escrever testes unitários e de integração**  
-- 🚀 **Preparar versão de produção, com build otimizado
+- 🚀 **Preparar versão de produção, com build otimizado**
 
 
 Pedro Caniato
