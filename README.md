@@ -6,8 +6,7 @@ Aplicação simples de previsão do tempo, criada para demonstrar integração c
 
 ## 🚀 Tecnologias Utilizadas
 
-- React  
-- TypeScript  
+- JavaScript  
 - CSS
 - API de clima externa (ex: OpenWeatherMap)  
 
